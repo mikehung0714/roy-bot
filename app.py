@@ -41,7 +41,7 @@ def handle_message(event):
     # latitude緯度 longitude經度
     userlat = event.message.latitude
     userlon = event.message.longitude
-    print('你好，經度:{}\n緯度:{}'.format(userlon,userlat)')
+    print('你好，經度:{}\n緯度:{}'.format(userlon,userlat))
     message = TextSendMessage(text='經度:{}\緯度:{}'.format(userlon,userlat))
     line_bot_api.reply_message(event.reply_token, message)
 
