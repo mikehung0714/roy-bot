@@ -35,7 +35,7 @@ def callback():
 #之後所有機器人判斷邏輯的編輯區
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    userSentMessage = event.massage.text
+    userSentMessage = event.message.text
     if '口罩' in userSentMessage:
         message = TextSendMessage(text = getMaskOpenData())
     else:
