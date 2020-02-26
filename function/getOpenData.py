@@ -10,8 +10,10 @@ def getMaskOpenData():
 
     storeList.sort(key=lambda x: int(x[4]), reverse=True)
 
-    return storeList[0][2]
-    # print(storeList[1][2])
-    # print(storeList[2][2])
-
-#print(getMaskOpenData())
+    for store in storeList:
+        addressList = store[2].split('縣')
+        if len(addressList) == 1:
+            store.append(store[2].split('市')[0] + '市')
+        else:
+            store.append(store[2].split('縣')[0] + '縣')
+    return storeList

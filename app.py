@@ -65,6 +65,22 @@ def handle_message(event):
     userlat = event.message.latitude
     userlon = event.message.longitude
     useraddress = event.message.address
+    flag = False
+    address = ''
+    for text in useraddress:
+        if not text.isdigit():
+            flag = True
+        if flag:
+            address += text
+    address = address[2:]
+
+    addressList = address.split('縣')
+    if len(addressList) == 1:
+        county = address.split('市')[0] + '市'
+    else:
+        county = address.split('縣')[0] + '縣'
+    message = TextSendMessage(text='經度:{}\n緯度:{}\n地址:{}\n無郵遞區號地址:{}\n縣市:{}'.format(userlon,userlat,useraddress,address,county))
+    line_bot_api.reply_message(event.reply_token, message)
     print('你好，經度:{}\n緯度:{}'.format(userlon,userlat))
     message = TextSendMessage(text='經度:{}\n緯度:{}\n地址:{}'.format(userlon,userlat,useraddress))
     line_bot_api.reply_message(event.reply_token, message)
