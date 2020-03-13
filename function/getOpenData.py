@@ -11,8 +11,6 @@ def getMaskOpenData(userLocation,userlat,userlon):
 
     storeList = [store.split(',') for store in web_data.text.split('\n')[1:] if store != '']
 
-    storeList.sort(key=lambda x: int(x[4]), reverse=True)
-
     tempList = []
 
     for store in storeList:
