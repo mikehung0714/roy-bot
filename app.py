@@ -37,7 +37,7 @@ def callback():
 def handle_message(event):
     userSentMessage = event.message.text
     if '口罩' in userSentMessage:
-        message = TextSendMessage(text = getMaskOpenData())
+        message = TextSendMessage(text = '請傳送座標')
     else:
         message = TemplateSendMessage(
         alt_text='請傳送座標',
