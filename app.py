@@ -79,10 +79,11 @@ def handle_message(event):
         county = address.split('市')[0] + '市'
     else:
         county = address.split('縣')[0] + '縣'
-    aroundList = getMaskOpenData(county)
+        
+    aroundList = getMaskOpenData(county,userlat,userlon)
     storeName = ''
     for aroundStore in aroundList:
-        storeName += aroundStore[1] + '\n成人口罩：' + str(aroundStore[4]) + '\n兒童口罩：' + str(aroundStore[5] + '\n\n')
+        storeName += aroundStore[1] + '\n距離：' + str(aroundStore[-1]) + '\n成人口罩：' + str(aroundStore[4]) + '\n兒童口罩：' + str(aroundStore[5] + '\n\n')
 
     message = TextSendMessage(text=storeName)
     line_bot_api.reply_message(event.reply_token, message)

@@ -1,6 +1,9 @@
 import requests
+from geopy import distance
 
-def getMaskOpenData(userLocation):
+from function.location import location
+
+def getMaskOpenData(userLocation,userlat,userlon):
     url = 'https://quality.data.gov.tw/dq_download_csv.php?nid=116285&md5_url=2150b333756e64325bdbc4a5fd45fad1'
 
     web_data = requests.get(url)
@@ -29,8 +32,20 @@ def getMaskOpenData(userLocation):
         if county == userLocation:
             tempList.append(store)
     
-    tempList.sort(key = lambda x : int(x[4]) + int(x[5]),reverse=True)
+    tempList = [store for store in tempList if int(store[4]) > 50 and int(store[5]) > 50]
+    # tempList.sort(key = lambda x : int(x[4]) + int(x[5]),reverse=True)
 
-    return tempList[:10]
+    resultList = []
+    for store in tempList:
+        storelat,storelon = location(store[2])
+        store.append(distance.distance((storelat,storelon),(userlat,userlon)).km)
+        resultList.append(store)
+
+    resultList.sort(key = lambda x:float(x[-1]))
+
+    if len(resultList) > 10:
+        return resultList[:10]
+    else:
+        return resultList
 
 # print(getMaskOpenData())
