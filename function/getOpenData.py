@@ -32,9 +32,9 @@ def getMaskOpenData(userLocation,userlat,userlon):
         if county == userLocation:
             tempList.append(store)
     
-    tempList = [store for store in tempList if int(store[4]) > 50 and int(store[5]) > 50]
+    tempList = [store for store in tempList if int(store[4]) > 500 and int(store[5]) > 500]
     # tempList.sort(key = lambda x : int(x[4]) + int(x[5]),reverse=True)
-
+    print('有{}家藥局'.format(len(tempList)))
     resultList = []
     for store in tempList:
         storelat,storelon = location(store[2])
